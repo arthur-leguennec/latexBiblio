@@ -89,7 +89,8 @@
 
 \section{Introduction}
 
-Il y a beaucoup de papier sur la classification des s\'eries temporelles, et il existe beaucoup de m\'ethodes dif\'erentes pour y parvenir. La classification des s\'eries temporelles est pr\'esente dans beaucoup de domaine comme la m\'edecine, la biologie, la reconnaissance audio, ... Nous allons utiliser i\c ci les r\'eseaux de neurones profonds. Dans ce mod\`ele d\textquotesingle apprentissage, les r\'eseaux convolutionnels (ou Convolutional Neural Networks) ont de tr\`es bons r\'esultats dans le domaine de la classification d\textquotesingle image (\cite{chatfield2014return}). Il existe cependant d\textquotesingle autres m\'ethodes dans d\textquotesingle autres papiers (\cite{bailly2015bag}) tels que le bag-of-words, ou encore les machines \`a vecteur de support.
+Il y a beaucoup d\textquotesingle articles sur la classification des s\'eries temporelles, et est présente dans beaucoup de domaine comme la m\'edecine, la biologie, la reconnaissance audio, ... Il existe beaucoup de m\'ethodes diff\'erentes pour y parvenir. Par exemple, \cite{bailly2015bag} utilise les bag-of-words, une technique bas\'ee sur la description des documents par des mots. \cite{zheng2014time} utilise plut\^ot les r\'eseaux de neurones convolutionnels.
+Nous allons utiliser ici les r\'eseaux de neurones profonds. Dans ce mod\`ele d\textquotesingle apprentissage, les r\'eseaux convolutionnels (ou Convolutional Neural Networks) ont de tr\`es bons r\'esultats dans le domaine de la classification d\textquotesingle image (\cite{chatfield2014return}). Il existe cependant d\textquotesingle autres m\'ethodes dans d\textquotesingle autres papiers (\cite{bailly2015bag}) tels que le bag-of-words, ou encore les machines \`a vecteur de support.
 Comme dans le domaine des s\'eries temporelles les nombres de donn\'ees annot\'ees est faible, on allons explorer des m\'ethodes permettant de diminuer les cons\'equequences de ce manque de donn\'ees. \\
 Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l'\'etat de l'art dans ce domaine, la section 3 introduit les outils qui vont nous servir pour la classification, et la section 4 s'interessera aux probl\`emes qui nous concernent.
 
@@ -103,7 +104,7 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l'\'eta
 
 		\begin{figure}[!ht]
 			\centering
-			\includegraphics[scale=0.6,natwidth=680,natheight=440]{figure1.png}
+			\includegraphics[scale=0.6,natwidth=680,natheight=440]{figures/bagOfWords.png}
 			\caption{Le bag-of-words est en bas de la figure, il est compos\'e de diff\'erents mots, ici des images, qui sont reconnus sur les documents (en haut), qui sont ici des images. Par exemple, pour la premi\`ere image, on a une forte correspondance avec le premier et deuxi\`eme mot, alors que l’on a une faible correspondance avec la derni\`ere image.}
 			\label{fig:BoW}
 		\end{figure}
@@ -123,14 +124,14 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l'\'eta
 			\centering
 			\begin{subfigure}{0.45\textwidth}
 				\centering	
-				\includegraphics[scale=0.7,natwidth=183,natheight=213]{figure2a.png}
+				\includegraphics[scale=0.7,natwidth=183,natheight=213]{figures/neuralNetworkLayers.png}
 				\caption{R\'eseau de neurones \`a couches}
 				\label{fig:nnl}
 			\end{subfigure}
 			\hspace*{\fill}
 			\begin{subfigure}{0.45\textwidth}	
 				\centering
-				\includegraphics[scale=0.7,natwidth=198,natheight=192]{figure2b.png}
+				\includegraphics[scale=0.7,natwidth=198,natheight=192]{figures/neuralNetworkCompleteConnexion.png}
 				\caption{R\'eseau de neurones \`a connexion compl\`ete}
 				\label{fig:nnc}
 			\end{subfigure}
@@ -142,7 +143,7 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l'\'eta
 
 		\begin{figure}[!ht]
 			\centering
-			\includegraphics[natwidth=131,natheight=52]{figure3.png}
+			\includegraphics[natwidth=131,natheight=52]{figures/neural.png}
 			\caption{La fonction d\textquotesingle activation est la fonction qui va d\'eterminer le comportement du neurone. Par exemple, si la fonction d\textquotesingle activation est un threshold, la sortie sera soit 1, soit 0. Si c’est une sigmoide (le plus souvent utlis\'e), la sortie sera y = 1 / (1 + exp(-x)) avec y la sortie et x l\textquotesingle entr\'ee.}
 			\label{fig:neural}
 		\end{figure}
@@ -183,8 +184,8 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l'\'eta
 
 		\begin{figure}[!ht]
 			\centering
-			\includegraphics[scale=0.6,natwidth=528,natheight=397]{figure4.png}
-			\caption{Exemple d\textquotesingle augmentation de donn\'ee pour une image. I\c ci, on a obtenu six images \`a partie d\textquotesingle une seule. On a d\textquotesingle abord appliqu\'e une inversion d\textquotesingle image et puis on a rogn\'e les images obtenues de deux mani\`eres diff\'erentes. En r\'ealit\'e, beaucoup plus de transformations sont appliqu\'ees, permettant de multiplier la base de donn\'ees des images de beaucoup (1024 dans~\cite{howard2013some}).}
+			\includegraphics[scale=0.6,natwidth=528,natheight=397]{figures/dataAugmentationImage.png}
+			\caption{Exemple d\textquotesingle augmentation de donn\'ee pour une image. Ici, on a obtenu six images \`a partie d\textquotesingle une seule. On a d\textquotesingle abord appliqu\'e une inversion d\textquotesingle image et puis on a rogn\'e les images obtenues de deux mani\`eres diff\'erentes. En r\'ealit\'e, beaucoup plus de transformations sont appliqu\'ees, permettant de multiplier la base de donn\'ees des images de beaucoup (1024 dans~\cite{howard2013some}).}
 			\label{fig:dataAugmentationChat}
 		\end{figure}
 

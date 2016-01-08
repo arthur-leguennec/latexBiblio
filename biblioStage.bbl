@@ -1,0 +1,49 @@
+\begin{thebibliography}{1}
+
+\bibitem{bailly2015bag}
+Adeline Bailly, Simon Malinowski, Romain Tavenard, Thomas Guyet, and Laetitia
+  Chapel.
+\newblock Bag-of-temporal-sift-words for time series classification.
+\newblock In {\em ECML/PKDD Workshop on Advanced Analytics and Learning on
+  Temporal Data}, 2015.
+
+\bibitem{chatfield2014return}
+Ken Chatfield, Karen Simonyan, Andrea Vedaldi, and Andrew Zisserman.
+\newblock Return of the devil in the details: Delving deep into convolutional
+  nets.
+\newblock {\em arXiv preprint arXiv:1405.3531}, 2014.
+
+\bibitem{howard2013some}
+Andrew~G Howard.
+\newblock Some improvements on deep convolutional neural network based image
+  classification.
+\newblock {\em arXiv preprint arXiv:1312.5402}, 2013.
+
+\bibitem{jia2014caffe}
+Yangqing Jia, Evan Shelhamer, Jeff Donahue, Sergey Karayev, Jonathan Long, Ross
+  Girshick, Sergio Guadarrama, and Trevor Darrell.
+\newblock Caffe: Convolutional architecture for fast feature embedding.
+\newblock In {\em Proceedings of the ACM International Conference on
+  Multimedia}, pages 675--678. ACM, 2014.
+
+\bibitem{krizhevsky2012imagenet}
+Alex Krizhevsky, Ilya Sutskever, and Geoffrey~E Hinton.
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock In {\em Advances in neural information processing systems}, pages
+  1097--1105, 2012.
+
+\bibitem{srivastava2014dropout}
+Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan
+  Salakhutdinov.
+\newblock Dropout: A simple way to prevent neural networks from overfitting.
+\newblock {\em The Journal of Machine Learning Research}, 15(1):1929--1958,
+  2014.
+
+\bibitem{zheng2014time}
+Yi~Zheng, Qi~Liu, Enhong Chen, Yong Ge, and J~Leon Zhao.
+\newblock Time series classification using multi-channels deep convolutional
+  neural networks.
+\newblock In {\em Web-Age Information Management}, pages 298--310. Springer,
+  2014.
+
+\end{thebibliography}
