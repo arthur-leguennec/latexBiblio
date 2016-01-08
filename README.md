@@ -12,5 +12,6 @@ The bibliographie is organized like following :
 $ latex biblio.tex
 $ latex biblio.tex
 $ bibtex biblio
+$ latex biblio.tex
 $ pdflatex biblio.tex
 ```
