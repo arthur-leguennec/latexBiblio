@@ -97,8 +97,9 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l'\'eta
 % Ce sujet de stage propose de s’int\'eresser \`a la classification de s\'eries temporelles en utilisant des mod\`eles d’apprentissage tr\`es puissants : les r\'eseaux de neurones profonds (Deep Neural Networks). Dans cette famille de m\'ethodes, les r\'eseaux convolutionnels (Convolutional Neural Networks, CNN) montrent actuellement l’\'etendue de leurs capacit\'es dans le domaine de la vision par ordinateur (voir par exemple [1]). Les tr\`es bonnes performances des CNN s’expliquent par leur capacit\'e \`a tirer profit des grands volumes de donn\'ees disponibles pour apprendre des descriptions et des classifieurs complexes. Dans le domaine de la classification de s\'eries temporelles, les volumes de donn\'ees annot\'ees sont souvent bien plus faibles [2]. L’objet de ce stage est d’\'evaluer la pertinence de l’utilisation des CNN dans ce cadre et de proposer des moyens d’att\'enuer l’impact attendu du faible volume de donn\'ees annot\'ees [3]. L’\'etudiant(e) retenu(e) devra faire preuve d’organisation et de s\'erieux pour mener \`a bien la campagne exp\'erimentale intensive impliqu\'ee par ce sujet. Pour ce faire, il/elle utilisera le framework Caffe [4].
  
 
-\section{State of the art}
+\section{\'Etat de l\textquotesingle art}
 	La classification de s\'erie temporelle est un sujet qui est \'etudi\'e depuis maintenant plusieurs ann\'ees, donc diff\'erentes techniques existent et de nombreux articles sur le sujet. Dans cette partie nous allons voir quelques unes de ces diff\'erentes techniques.
+
 	\subsection{Bag-of-Words}	
 		Le Bag-of-Words (BoW) est un mod\`ele de description de document avec des descripteurs (des “mots”). Il fonctionne en attribuant des mots aux documents, chaques mots ayant un probabilit\'e par document (voir figure~\ref{fig:Bow}). \cite{bailly2015bag} traite justement le sujet de la classification des s\'eries temporelles avec les Bag-of-Words.
 
@@ -109,13 +110,10 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l'\'eta
 			\label{fig:BoW}
 		\end{figure}
 
-	\subsection{Support Machine Vector}
+	\subsection{Machine \`a Vecteur de Support}
 		Les SVM (Support Vector Machine ou Machine \`a Vecteur de Support en fran\c cais) sont des techniques d\textquotesingle apprentissage supervis\'e. 
 
-
-
-\section{Neurals Networks and Time Series}
-	\subsection{Neural Network}
+	\subsection{R\'eseau de neurones}
 		Les r\'eseaux de neurones sont un syst\`eme inspir\'e du mod\`ele biologique du cerveau. Un r\'eseau de neurone est compos\'e de plusieurs neurones (voir figure~\ref{fig:neuralNetwork}) qui ont chacun une fonction d’activation (voir figure~\ref{fig:neural}) et qui sont reli\'es \`a d\textquotesingle autres neurones par des poids.
 
 		\bigbreak
@@ -155,17 +153,24 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l'\'eta
 		Comme vu pr\'ec\'edemment, il y a deux \'etapes essentielles pour le fonctionnement d’un r\'eseau de neurones : l\textquotesingle entra\^inement et le test. L\textquotesingle entra\^inement est l\`a pour trouver les poids corrects entre les neurones, et le test pour v\'erifier que ces poids sont corrects. Dans les deux cas, le r\'eseau a besoin d\textquotesingle une base de donn\'ee sur laquel s\textquotesingle entra\^iner et tester. Cette base de donn\'ee sera alors s\'epar\'ee en deux parties, l\textquotesingle une pour l\textquotesingle entra\^inement, une autre pour le test.
 		L\textquotesingle efficacit\'e d\textquotesingle un r\'eseau de neurones d\'epend de son architecture. Selon le nombre de couche et le nombre de neurones par couche, le r\'eseau peut \^etre plus ou moins performants (\cite{chatfield2014return}\cite{srivastava2014dropout}). La taille de la base de donn\'ee utilis\'e influence aussi les r\'esultats, Par exemple, [J\textquotesingle ai oubli\'e la r\'ef\'erence] montre bien que les performances d\'ependent bien de la taille des donn\'ees utilis\'ees. \begin{itshape} Rajouter que les m\'ethodes influencent aussi sur le r\'esultats. \end{itshape}
 
+		\subsubsection{R\'eseau de neurones profond'}
+			Un r\'eseau de neurones profond est un r\'eseau qui contient plusieurs couches cach\'ees. Ce type de r\'eseau a l\textquotesingle avantage de pouvoir apprendre un plus grand nombre de fonction avec un nombre de neurone dans les couches cach\'ees bien inf\'erieurs \`a celui d'un r\'eseau classique (ne contenant qu\textquotesingle une couche cach\'ee). En effet, \`a la place d\textquotesingle avoir un nombre exponentielle de neurones cach\'es (par rapoort aux neurones d'entr\'es), nous avons un nombre polynomiale.
+			Cependant, les r\'eseaux de neurones profonds sont difficiles \`a entra\^iner car ils n\'ecessitent beaucoup de donn\'ees label\'ees. Un entra\^inement d\textquotesingle un r\'eseau avec peu de donn\'ees nous donnerait un sur-apprentissage.
+			
+		\subsubsection{R\'eseau de neurones convolutionnels'}
+			Les CNN (Convolutional Neural Network, ou r\'eseaux convolutionnels) sont un structure particuli\`ere des r\'eseaux de neurones car les neurones d\textquotesingle une couche \`a une autre ne sont pas tous reli\'es entre eux comme dans un r\'eseau de neurone \`a couche classique (voir figure~\ref{fig:nnc}). Les connections entre neurones se font localement, ce qui fait des entr\'ees d\textquotesingle une couche cach\'ee un sous-ensemble de motif de la couche pr\'ec\'edente. La figure~\ref{fig:cnn} illustre bien l\textquotesingle architecture d'un CNN.
 
-	\subsection{CNN}
-		Les CNN (Convolutional Neural Network, ou r\'eseaux convolutionnels) sont un structure particuli\`ere des r\'eseaux de neurones car les neurones d\textquotesingle une couche \`a une autre ne sont pas tous reli\'es entre eux comme dans un r\'eseau de neurone \`a couche classique (voir figure~\ref{fig:nnc}). Les connections entre neurones se font localement, ce qui fait des entr\'ees d\textquotesingle une couche cach\'ee un sous-ensemble de motif de la couche pr\'ec\'edente. La figure~\ref{fig:cnn} illustre bien l\textquotesingle architecture d'un CNN.
+				\begin{figure}[!ht]
+					\centering
+					\includegraphics[natwidth=375,natheight=152]{figures/architectureCNN.png}
+					\caption{Ici, imaginons que la couche m-1 est une r\'etine o\`u chaque neurone correspond \`a un pixel d\textquotesingle une image. Dans la couche m, on s\textquotesingle aper\c coit que chaque neurone a 3 entr\'ees qui correspondent chacune \`a un pixel. Chaque neurone de la couche m est donc un sous-ensemble de l\textquotesingle image de 3 pixels. De la m\^eme fa\c con, chaque neurone de la couche m+1 est donc un sous-ensemble de l\textquotesingle image de 5 pixels.}
+					\label{fig:cnn}
+				\end{figure}
 
-		\begin{figure}[!ht]
-			\centering
-			\includegraphics[natwidth=375,natheight=152]{architectureCNN.png}
-			\caption{Ici, imaginons que la couche m-1 est une r\'etine o\`u chaque neurone correspond \`a un pixel d\textquotesingle une image. Dans la couche m, on s\textquotesingle aper\c coit que chaque neurone a 3 entr\'ees qui correspondent chacune \`a un pixel. Chaque neurone de la couche m est donc un sous-ensemble de l\textquotesingle image de 3 pixels. De la m\^eme fa\c con, chaque neurone de la couche m+1 est donc un sous-ensemble de l\textquotesingle image de 5 pixels.}
-			\label{fig:cnn}
-		\end{figure}
 
+
+
+\section{Time Series}
 
 	\subsection{Time Series}
 		Les s\'eries temporelles sont des donn\'ees qui d\'ependent du temps. Par exemple, la taille d\textquotesingle une personne par rapport \`a son âge peut \^etre vu comme une s\'erie temporelle. Le document [1] nous donne les d\'efinitions qui nous seront utile par la suite.
