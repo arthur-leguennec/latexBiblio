@@ -91,7 +91,7 @@
 
 Il y a beaucoup d\textquotesingle articles sur la classification des s\'eries temporelles, et est pr\'esente dans beaucoup de domaine comme la m\'edecine, la biologie, la reconnaissance audio, ... Il existe beaucoup de m\'ethodes diff\'erentes pour y parvenir. Par exemple, le document \cite{bailly2015bag} utilise les bag-of-words, une technique bas\'ee sur la description des documents par des mots. \cite{zheng2014time} utilise plut\^ot les r\'eseaux de neurones convolutionnels.
 Dans ce document, nous allons utiliser les r\'eseaux de neurones profonds. Dans ce type de mod\`ele d\textquotesingle apprentissage, les r\'eseaux convolutionnels (ou Convolutional Neural Networks) ont de tr\`es bons r\'esultats dans le domaine de la classification d\textquotesingle image (\cite{chatfield2014return}).
-Comme dans le domaine des s\'eries temporelles les nombres de donn\'ees annot\'ees est faible, on allons explorer des m\'ethodes permettant de diminuer les cons\'equequences de ce manque de donn\'ees. \\
+Comme dans le domaine des s\'eries temporelles les nombres de donn\'ees annot\'ees est faible, et les architectures qui vont \^etre utilis\'e demandent beaucoup de donn\'ee afin de fonctionner correctement. Nous allons donc explorer les m\'ethodes permettant de diminuer les cons\'equequences de ce manque de donn\'ees. \\
 Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textquotesingle \'etat de l\textquotesingle art dans ce domaine, la section 3 introduit les outils qui vont nous servir pour la classification, et la section 4 s'interessera aux probl\`emes qui nous concernent.
 
 % Ce sujet de stage propose de s’int\'eresser \`a la classification de s\'eries temporelles en utilisant des mod\`eles d’apprentissage tr\`es puissants : les r\'eseaux de neurones profonds (Deep Neural Networks). Dans cette famille de m\'ethodes, les r\'eseaux convolutionnels (Convolutional Neural Networks, CNN) montrent actuellement l’\'etendue de leurs capacit\'es dans le domaine de la vision par ordinateur (voir par exemple [1]). Les tr\`es bonnes performances des CNN s’expliquent par leur capacit\'e \`a tirer profit des grands volumes de donn\'ees disponibles pour apprendre des descriptions et des classifieurs complexes. Dans le domaine de la classification de s\'eries temporelles, les volumes de donn\'ees annot\'ees sont souvent bien plus faibles [2]. L’objet de ce stage est d’\'evaluer la pertinence de l’utilisation des CNN dans ce cadre et de proposer des moyens d’att\'enuer l’impact attendu du faible volume de donn\'ees annot\'ees [3]. L’\'etudiant(e) retenu(e) devra faire preuve d’organisation et de s\'erieux pour mener \`a bien la campagne exp\'erimentale intensive impliqu\'ee par ce sujet. Pour ce faire, il/elle utilisera le framework Caffe [4].
@@ -100,8 +100,21 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 \section{\'Etat de l\textquotesingle art}
 	La classification de s\'erie temporelle est un sujet qui est \'etudi\'e depuis maintenant plusieurs ann\'ees, donc diff\'erentes techniques existent et de nombreux articles sur le sujet. Dans cette partie nous allons voir quelques unes de ces diff\'erentes techniques.
 
+	\subsection{D\'eformation dynamique temporelle}
+		La d\'eformation dynamique temporelle (ou DTW en anglais pour Dynamic Time Warping) est un algorithme qui permet de detecter si deux s\'eries ont des similarit\'e m\^eme s\textquotesingle il y a eu une d\'eformation (voir figure~\ref{fig:dtw}).
+
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[scale=0.6,natwidth=582,natheight=269]{figures/dtw.png}
+			\caption{Comme on peut le voir, les deux s\'eries temporelles ne sont pas les m\^emes mais on peut reconna\^itre le m\^eme sch\'ema.}
+			\label{fig:dtw}
+		\end{figure}
+
+	\subsection{M\'ethode des k plus proches voisins}
+		La m\'ethode des k plus proches voisins (ou kNN pour k Nearest Neighboors) est une m\'ethode permettant de classifier les donn\'ees en les s\'eparant.
+
 	\subsection{Bag-of-Words}	
-		Le Bag-of-Words (BoW) est un mod\`ele de description de document avec des descripteurs (des “mots”). Il fonctionne en attribuant des mots aux documents, chaques mots ayant un probabilit\'e par document (voir figure~\ref{fig:Bow}). \cite{bailly2015bag} traite justement le sujet de la classification des s\'eries temporelles avec les Bag-of-Words.
+		Le Bag-of-Words (BoW) est un mod\`ele de description de document avec des descripteurs (des “mots”). Il fonctionne en attribuant des mots aux documents, chaques mots ayant un probabilit\'e par document (voir figure~\ref{fig:BoW}). \cite{bailly2015bag} traite justement le sujet de la classification des s\'eries temporelles avec les Bag-of-Words. En utilisant les maximums et minimums locaux, ils obtiennent des mots qui seront ensuite utilis\'es dans la description des s\'eries temporelles.
 
 		\begin{figure}[!ht]
 			\centering
@@ -109,6 +122,8 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 			\caption{Le bag-of-words est en bas de la figure, il est compos\'e de diff\'erents mots, ici des images, qui sont reconnus sur les documents (en haut), qui sont ici des images. Par exemple, pour la premi\`ere image, on a une forte correspondance avec le premier et deuxi\`eme mot, alors que l’on a une faible correspondance avec la derni\`ere image.}
 			\label{fig:BoW}
 		\end{figure}
+
+		En utilisant l'algorithme de SIFT (Scale-Invariant Feature Transform) sur les donn\'ees d\textquotesingle UCR (\cite{UCRArchive}), les taux d\textquotesingle erreurs obtenus dans \cite{bailly2015bag} sont parfois meilleurs qu'en utilisant le DTW (Dynamic Time Warping) et la méthode des k plus proches voisins seuls.
 
 	\subsection{Machine \`a Vecteur de Support}
 		Les SVM (Support Vector Machine ou Machine \`a Vecteur de Support en fran\c cais) sont des techniques d\textquotesingle apprentissage supervis\'e. 
@@ -166,8 +181,8 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 			\end{figure}
 
 
-		\subsubsection{R\'eseau de neurones convolutionnels'}
-			Les CNN (Convolutional Neural Network, ou r\'eseaux convolutionnels) sont un structure particuli\`ere des r\'eseaux de neurones car les neurones d\textquotesingle une couche \`a une autre ne sont pas tous reli\'es entre eux comme dans un r\'eseau de neurone \`a couche classique (voir figure~\ref{fig:nnc}). Les connections entre neurones se font localement, ce qui fait des entr\'ees d\textquotesingle une couche cach\'ee un sous-ensemble de motif de la couche pr\'ec\'edente. La figure~\ref{fig:cnn} illustre bien l\textquotesingle architecture d\textquotesingle un CNN.
+		\subsubsection{R\'eseau de neurones convolutionnels}
+			Les CNN (Convolutional Neural Network, ou r\'eseaux convolutionnels) sont un structure particuli\`ere des r\'eseaux de neurones profond car les neurones d\textquotesingle une couche \`a une autre ne sont pas tous reli\'es entre eux. En effet, es connections entre neurones se font localement, ce qui fait des entr\'ees d\textquotesingle une couche cach\'ee un sous-ensemble de motif de la couche pr\'ec\'edente (voir figure~\ref{fig:cnn}.
 
 			\begin{figure}[!ht]
 				\centering
@@ -181,21 +196,20 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 
 			\begin{figure}[!ht]
 				\centering
-				\includegraphics[natwidth=474,natheight=504]{figures/cnnOnImage.png}
+				\includegraphics[natwidth=474,natheight=504,scale=0.6]{figures/cnnOnImage.png}
 				\caption{L\textquotesingle image d\textquotesingle entr\'ee contient ici 166 composantes, donc la couche d\textquotesingle entr\'ee contiendra 166 neurones. On peut voir que la premi\`ere couche cach\'ee est bien un ensemble de pixel.}
 				\label{fig:cnnChat}
 			\end{figure}
 
+			Pour les s\'eries temporelles, les CNN peuvent aussi s\textquotesingle appliquer. Par exemple, l\textquotesingle article \cite{zheng2014time} utilise les CNN pour faire de la classification de s\'eries temporelles multivari\'ees, c\textquotesingle est \`a dire des s\'eries temporelles qui sont sur plusieurs dimensions. Pour cela, ils 
 
 
 
 
 
 \section{Time Series}
-
-	\subsection{Time Series}
-		Les s\'eries temporelles sont des donn\'ees qui d\'ependent du temps. Par exemple, la taille d\textquotesingle une personne par rapport \`a son âge peut \^etre vu comme une s\'erie temporelle. Le document [1] nous donne les d\'efinitions qui nous seront utile par la suite.
-		Il existe de nombreux domaines o\`u les s\'eries temporelles interviennent. Elles peuvent, par exemple, servir dans la biologie, la m\'edecine, la finance, ...
+	Les s\'eries temporelles sont des donn\'ees qui d\'ependent du temps. Par exemple, la taille d\textquotesingle une personne par rapport \`a son âge peut \^etre vu comme une s\'erie temporelle. Le document [1] nous donne les d\'efinitions qui nous seront utile par la suite.
+	Il existe de nombreux domaines o\`u les s\'eries temporelles interviennent. Elles peuvent, par exemple, servir dans la biologie, la m\'edecine, la finance, ...
 
 
 
