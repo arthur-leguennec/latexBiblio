@@ -89,10 +89,10 @@
 
 \section{Introduction}
 
-Il y a beaucoup d\textquotesingle articles sur la classification des s\'eries temporelles, et est présente dans beaucoup de domaine comme la m\'edecine, la biologie, la reconnaissance audio, ... Il existe beaucoup de m\'ethodes diff\'erentes pour y parvenir. Par exemple, le document \cite{bailly2015bag} utilise les bag-of-words, une technique bas\'ee sur la description des documents par des mots. \cite{zheng2014time} utilise plut\^ot les r\'eseaux de neurones convolutionnels.
+Il y a beaucoup d\textquotesingle articles sur la classification des s\'eries temporelles, et est pr\'esente dans beaucoup de domaine comme la m\'edecine, la biologie, la reconnaissance audio, ... Il existe beaucoup de m\'ethodes diff\'erentes pour y parvenir. Par exemple, le document \cite{bailly2015bag} utilise les bag-of-words, une technique bas\'ee sur la description des documents par des mots. \cite{zheng2014time} utilise plut\^ot les r\'eseaux de neurones convolutionnels.
 Dans ce document, nous allons utiliser les r\'eseaux de neurones profonds. Dans ce type de mod\`ele d\textquotesingle apprentissage, les r\'eseaux convolutionnels (ou Convolutional Neural Networks) ont de tr\`es bons r\'esultats dans le domaine de la classification d\textquotesingle image (\cite{chatfield2014return}).
 Comme dans le domaine des s\'eries temporelles les nombres de donn\'ees annot\'ees est faible, on allons explorer des m\'ethodes permettant de diminuer les cons\'equequences de ce manque de donn\'ees. \\
-Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l'\'etat de l'art dans ce domaine, la section 3 introduit les outils qui vont nous servir pour la classification, et la section 4 s'interessera aux probl\`emes qui nous concernent.
+Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textquotesingle \'etat de l\textquotesingle art dans ce domaine, la section 3 introduit les outils qui vont nous servir pour la classification, et la section 4 s'interessera aux probl\`emes qui nous concernent.
 
 % Ce sujet de stage propose de s’int\'eresser \`a la classification de s\'eries temporelles en utilisant des mod\`eles d’apprentissage tr\`es puissants : les r\'eseaux de neurones profonds (Deep Neural Networks). Dans cette famille de m\'ethodes, les r\'eseaux convolutionnels (Convolutional Neural Networks, CNN) montrent actuellement l’\'etendue de leurs capacit\'es dans le domaine de la vision par ordinateur (voir par exemple [1]). Les tr\`es bonnes performances des CNN s’expliquent par leur capacit\'e \`a tirer profit des grands volumes de donn\'ees disponibles pour apprendre des descriptions et des classifieurs complexes. Dans le domaine de la classification de s\'eries temporelles, les volumes de donn\'ees annot\'ees sont souvent bien plus faibles [2]. L’objet de ce stage est d’\'evaluer la pertinence de l’utilisation des CNN dans ce cadre et de proposer des moyens d’att\'enuer l’impact attendu du faible volume de donn\'ees annot\'ees [3]. L’\'etudiant(e) retenu(e) devra faire preuve d’organisation et de s\'erieux pour mener \`a bien la campagne exp\'erimentale intensive impliqu\'ee par ce sujet. Pour ce faire, il/elle utilisera le framework Caffe [4].
  
@@ -133,7 +133,7 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l'\'eta
 				\caption{R\'eseau de neurones \`a connexion compl\`ete}
 				\label{fig:nnc}
 			\end{subfigure}
-			\caption{Il existe diff\'erents types de r\'eseaux de neurones. Par exemple, la figure 1.a est un r\'eseau avec une architecture \`a couche, alors que le r\'eseau de la figure 2.b \`a une architecture \`a connexion compl\`ete. Dans le domaine de la classificatin, l'architecture \`a couche est souvent utilis\'e.}
+			\caption{Il existe diff\'erents types de r\'eseaux de neurones. Par exemple, la figure 1.a est un r\'eseau avec une architecture \`a couche, alors que le r\'eseau de la figure 2.b \`a une architecture \`a connexion compl\`ete. Dans le domaine de la classificatin, l\textquotesingle architecture \`a couche est souvent utilis\'e.}
 			\label{fig:neuralNetwork}
 		\end{figure}
 
@@ -153,19 +153,40 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l'\'eta
 		Comme vu pr\'ec\'edemment, il y a deux \'etapes essentielles pour le fonctionnement d’un r\'eseau de neurones : l\textquotesingle entra\^inement et le test. L\textquotesingle entra\^inement est l\`a pour trouver les poids corrects entre les neurones, et le test pour v\'erifier que ces poids sont corrects. Dans les deux cas, le r\'eseau a besoin d\textquotesingle une base de donn\'ee sur laquel s\textquotesingle entra\^iner et tester. Cette base de donn\'ee sera alors s\'epar\'ee en deux parties, l\textquotesingle une pour l\textquotesingle entra\^inement, une autre pour le test.
 		L\textquotesingle efficacit\'e d\textquotesingle un r\'eseau de neurones d\'epend de son architecture. Selon le nombre de couche et le nombre de neurones par couche, le r\'eseau peut \^etre plus ou moins performants (\cite{chatfield2014return}\cite{srivastava2014dropout}). La taille de la base de donn\'ee utilis\'e influence aussi les r\'esultats, Par exemple, [J\textquotesingle ai oubli\'e la r\'ef\'erence] montre bien que les performances d\'ependent bien de la taille des donn\'ees utilis\'ees. \begin{itshape} Rajouter que les m\'ethodes influencent aussi sur le r\'esultats. \end{itshape}
 
-		\subsubsection{R\'eseau de neurones profond'}
-			Un r\'eseau de neurones profond est un r\'eseau qui contient plusieurs couches cach\'ees. Ce type de r\'eseau a l\textquotesingle avantage de pouvoir apprendre un plus grand nombre de fonction avec un nombre de neurone dans les couches cach\'ees bien inf\'erieurs \`a celui d'un r\'eseau classique (ne contenant qu\textquotesingle une couche cach\'ee). En effet, \`a la place d\textquotesingle avoir un nombre exponentielle de neurones cach\'es (par rapoort aux neurones d'entr\'es), nous avons un nombre polynomiale.
-			Cependant, les r\'eseaux de neurones profonds sont difficiles \`a entra\^iner car ils n\'ecessitent beaucoup de donn\'ees label\'ees. Un entra\^inement d\textquotesingle un r\'eseau avec peu de donn\'ees nous donnerait un sur-apprentissage.
-			
-		\subsubsection{R\'eseau de neurones convolutionnels'}
-			Les CNN (Convolutional Neural Network, ou r\'eseaux convolutionnels) sont un structure particuli\`ere des r\'eseaux de neurones car les neurones d\textquotesingle une couche \`a une autre ne sont pas tous reli\'es entre eux comme dans un r\'eseau de neurone \`a couche classique (voir figure~\ref{fig:nnc}). Les connections entre neurones se font localement, ce qui fait des entr\'ees d\textquotesingle une couche cach\'ee un sous-ensemble de motif de la couche pr\'ec\'edente. La figure~\ref{fig:cnn} illustre bien l\textquotesingle architecture d'un CNN.
+		\subsubsection{R\'eseau de neurones profond\textquotesingle }
+			Un r\'eseau de neurones profond est un r\'eseau qui contient plusieurs couches cach\'ees. Ce type de r\'eseau a l\textquotesingle avantage de pouvoir apprendre un plus grand nombre de fonction avec un nombre de neurone dans les couches cach\'ees bien inf\'erieurs \`a celui d\textquotesingle un r\'eseau classique (ne contenant qu\textquotesingle une couche cach\'ee). En effet, \`a la place d\textquotesingle avoir un nombre exponentielle de neurones cach\'es (par rapoort aux neurones d\textquotesingle entr\'es), nous avons un nombre polynomiale.
+			Cependant, les r\'eseaux de neurones profonds sont difficiles \`a entra\^iner car ils n\'ecessitent beaucoup de donn\'ees label\'ees. L\textquotesingle entra\^inement d\textquotesingle un r\'eseau avec peu de donn\'ees nous donnerait un sur-apprentissage.
+			Pour entra\^inemer un r\'eseau de neurones profond, une des m\'ethodes existante est greedy layerwise training qui consiste \`a d\textquotesingle abord entra\^iner un r\'eseau avec une couche cach\'ee, de garder les param\`tres obtenus, puis de rajouter une seconde couche cach\'ee, et ainsi de suite (voir figure~\ref{fig:trainDeepNet}).
 
-				\begin{figure}[!ht]
-					\centering
-					\includegraphics[natwidth=375,natheight=152]{figures/architectureCNN.png}
-					\caption{Ici, imaginons que la couche m-1 est une r\'etine o\`u chaque neurone correspond \`a un pixel d\textquotesingle une image. Dans la couche m, on s\textquotesingle aper\c coit que chaque neurone a 3 entr\'ees qui correspondent chacune \`a un pixel. Chaque neurone de la couche m est donc un sous-ensemble de l\textquotesingle image de 3 pixels. De la m\^eme fa\c con, chaque neurone de la couche m+1 est donc un sous-ensemble de l\textquotesingle image de 5 pixels.}
-					\label{fig:cnn}
-				\end{figure}
+			\begin{figure}[!ht]
+				\centering
+				\includegraphics[scale=0.5,natwidth=919,natheight=412]{figures/trainDeepNetByGreedyLayerWise.png}
+				\caption{On utilise ici l\textquotesingle algorithme greedy layerwise training avec des stacked autoencoders. C\textquotesingle est \`a dire que l\textquotesingle on veut que la sortie soit le plus proche possible de la couche qui la prec\`ede.}
+				\label{fig:trainDeepNet}
+			\end{figure}
+
+
+		\subsubsection{R\'eseau de neurones convolutionnels'}
+			Les CNN (Convolutional Neural Network, ou r\'eseaux convolutionnels) sont un structure particuli\`ere des r\'eseaux de neurones car les neurones d\textquotesingle une couche \`a une autre ne sont pas tous reli\'es entre eux comme dans un r\'eseau de neurone \`a couche classique (voir figure~\ref{fig:nnc}). Les connections entre neurones se font localement, ce qui fait des entr\'ees d\textquotesingle une couche cach\'ee un sous-ensemble de motif de la couche pr\'ec\'edente. La figure~\ref{fig:cnn} illustre bien l\textquotesingle architecture d\textquotesingle un CNN.
+
+			\begin{figure}[!ht]
+				\centering
+				\includegraphics[natwidth=375,natheight=152]{figures/architectureCNN.png}
+				\caption{Ici, imaginons que la couche m-1 est une r\'etine o\`u chaque neurone correspond \`a un pixel d\textquotesingle une image. Dans la couche m, on s\textquotesingle aper\c coit que chaque neurone a 3 entr\'ees qui correspondent chacune \`a un pixel. Chaque neurone de la couche m est donc un sous-ensemble de l\textquotesingle image de 3 pixels. De la m\^eme fa\c con, chaque neurone de la couche m+1 est donc un sous-ensemble de l\textquotesingle image de 5 pixels.}
+				\label{fig:cnn}
+			\end{figure}
+
+			Dans la figure~\ref{fig:cnn}, les neurones de la couche m-1 sont les filtres de cette couche. De la m\^eme fa\c con, les neurones de la couche m-2 sont aussi des filtres de cette couche. Un CNN peut avoir plusieurs couches de filtres, le nombre de filtre d\textquotesingle une couche \`a une autre d\'ecroissant.
+			Appliqu\'e \`a une image, les filtres de la premi\`ere couche cach\'ee peuvent \^etre associ\'es \`a un ensemble de pixel (voir figure~\ref{fig:cnnChat}), et ensuite de suite avec les autres couches.
+
+			\begin{figure}[!ht]
+				\centering
+				\includegraphics[natwidth=474,natheight=504]{figures/cnnOnImage.png}
+				\caption{L\textquotesingle image d\textquotesingle entr\'ee contient ici 166 composantes, donc la couche d\textquotesingle entr\'ee contiendra 166 neurones. On peut voir que la premi\`ere couche cach\'ee est bien un ensemble de pixel.}
+				\label{fig:cnnChat}
+			\end{figure}
+
+
 
 
 
