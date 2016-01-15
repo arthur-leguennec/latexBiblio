@@ -23,21 +23,21 @@ Université Rennes 1]
 \begin{center}
 
 % Upper part of the page
-\includegraphics[width=0.8\textwidth]{./header}\\[1cm]
+\includegraphics[width=0.8\textwidth]{./header.png}\\[1cm]
 \textsc{\Large Master research Internship}
 \vspace{1cm}
 
-\includegraphics[width=0.09\textwidth]{./rennes1}
-\includegraphics[width=0.09\textwidth]{./ens-Rennes}
-\includegraphics[width=0.1\textwidth]{./insa-rennes}
-\includegraphics[width=0.08\textwidth]{./supelec}
-\includegraphics[width=0.06\textwidth]{./esir}
-\includegraphics[width=0.07\textwidth]{./enssat} 
-\includegraphics[width=0.07\textwidth]{./UBO}
-\includegraphics[width=0.09\textwidth]{./logo_ENIB} 
-\includegraphics[width=0.05\textwidth]{./tel-br}
-\includegraphics[width=0.05\textwidth]{./ensta}
-\includegraphics[width=0.05\textwidth]{./logoUbs}
+\includegraphics[natwidth=352,	natheight=143,	width=0.09\textwidth]{schools/rennes1.png}
+\includegraphics[natwidth=1273,	natheight=545,	width=0.09\textwidth]{schools/ENS-Rennes.png}
+\includegraphics[natwidth=650,	natheight=150,	width=0.1\textwidth] {schools/insa-rennes.jpg}
+\includegraphics[natwidth=1152,	natheight=591,	width=0.08\textwidth]{schools/supelec.jpg}
+\includegraphics[natwidth=160,	natheight=71,	width=0.06\textwidth]{schools/esir.png}
+\includegraphics[natwidth=204,	natheight=247,	width=0.07\textwidth]{schools/enssat.png} 
+\includegraphics[natwidth=1417,	natheight=945,	width=0.07\textwidth]{schools/UBO.png}
+\includegraphics[natwidth=1479,	natheight=707,	width=0.09\textwidth]{schools/logo_ENIB.png} 
+\includegraphics[natwidth=1181,	natheight=1181,	width=0.05\textwidth]{schools/tel-br.png}
+\includegraphics[natwidth=204,	natheight=247,	width=0.05\textwidth]{schools/ensta.jpg}
+\includegraphics[natwidth=4000,	natheight=4000,	width=0.05\textwidth]{schools/logoUbs.jpg}
 
 
 

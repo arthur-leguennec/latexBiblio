@@ -19,9 +19,9 @@
 \school{rennes1}
 
 
-% the domain should be one or two of:
+% the domain should be one or two of
 % Technology for Human Learning 
-% Artificial Intelligence 
+% Artificial Intelligence				***** 
 % Computer Arithmetic
 % Hardware Architecture
 % Automatic Control Engineering
@@ -34,7 +34,7 @@
 % Cryptography and Security 
 % Computer Vision and Pattern Recognition
 % Computers and Society 
-% Databases 
+% Databases 							*****
 % Distributed, Parallel, and Cluster Computing 
 % Digital Libraries
 % Discrete Mathematics 
@@ -51,7 +51,7 @@
 % Information Retrieval 
 % Information Theory 
 % Ubiquitous Computing 
-% Machine Learning
+% Machine Learning						*****
 % Logic in Computer Science 
 % Multiagent Systems 
 % Mobile Computing
@@ -89,9 +89,9 @@
 
 \section{Introduction}
 
-Il y a beaucoup d\textquotesingle articles sur la classification des s\'eries temporelles, et est pr\'esente dans beaucoup de domaine comme la m\'edecine, la biologie, la reconnaissance audio, ... Il existe beaucoup de m\'ethodes diff\'erentes pour y parvenir. Par exemple, le document \cite{bailly2015bag} utilise les bag-of-words, une technique bas\'ee sur la description des documents par des mots. \cite{zheng2014time} utilise plut\^ot les r\'eseaux de neurones convolutionnels.
+Il y a beaucoup d\textquotesingle articles sur la classification des s\'eries temporelles, et est pr\'esente dans beaucoup de domaine comme la m\'edecine, la biologie, la reconnaissance audio, ... Il existe beaucoup de m\'ethodes diff\'erentes pour y parvenir. Par exemple, l\textquotesingle article \cite{bailly2015bag} utilise les bag-of-words, une technique bas\'ee sur la description des documents par des mots. \cite{zheng2014time} utilise plut\^ot les r\'eseaux de neurones convolutionnels.
 Dans ce document, nous allons utiliser les r\'eseaux de neurones profonds. Dans ce type de mod\`ele d\textquotesingle apprentissage, les r\'eseaux convolutionnels (ou Convolutional Neural Networks) ont de tr\`es bons r\'esultats dans le domaine de la classification d\textquotesingle image (\cite{chatfield2014return}).
-Comme dans le domaine des s\'eries temporelles les nombres de donn\'ees annot\'ees est faible, et les architectures qui vont \^etre utilis\'e demandent beaucoup de donn\'ee afin de fonctionner correctement. Nous allons donc explorer les m\'ethodes permettant de diminuer les cons\'equequences de ce manque de donn\'ees. \\
+Comme dans le domaine des s\'eries temporelles les nombres de donn\'ees annot\'ees est faible, et que les architectures qui vont seront utilis\'e demandent beaucoup de donn\'ee afin de fonctionner correctement. Nous allons donc explorer les m\'ethodes permettant de diminuer les cons\'equequences de ce manque de donn\'ees. \\
 Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textquotesingle \'etat de l\textquotesingle art dans ce domaine, et la section 3 s\textquotesingle interessera aux probl\`emes du manque de donn\'ees pour les s\'eries temporelles.
 
 % Ce sujet de stage propose de s’int\'eresser \`a la classification de s\'eries temporelles en utilisant des mod\`eles d\textquotesingle apprentissage tr\`es puissants : les r\'eseaux de neurones profonds (Deep Neural Networks). Dans cette famille de m\'ethodes, les r\'eseaux convolutionnels (Convolutional Neural Networks, CNN) montrent actuellement l\textquotesingle \'etendue de leurs capacit\'es dans le domaine de la vision par ordinateur (voir par exemple [1]). Les tr\`es bonnes performances des CNN s’expliquent par leur capacit\'e \`a tirer profit des grands volumes de donn\'ees disponibles pour apprendre des descriptions et des classifieurs complexes. Dans le domaine de la classification de s\'eries temporelles, les volumes de donn\'ees annot\'ees sont souvent bien plus faibles [2]. l\textquotesingle objet de ce stage est d\textquotesingle \'evaluer la pertinence de l\textquotesingle utilisation des CNN dans ce cadre et de proposer des moyens d\textquotesingle att\'enuer l\textquotesingle impact attendu du faible volume de donn\'ees annot\'ees [3]. l\textquotesingle \'etudiant(e) retenu(e) devra faire preuve d\textquotesingle organisation et de s\'erieux pour mener \`a bien la campagne exp\'erimentale intensive impliqu\'ee par ce sujet. Pour ce faire, il/elle utilisera le framework Caffe [4].
@@ -100,77 +100,113 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 \section{\'Etat de l\textquotesingle art}
 	La classification de s\'erie temporelle est un sujet qui est \'etudi\'e depuis maintenant plusieurs ann\'ees, donc diff\'erentes techniques existent et de nombreux articles sur le sujet. Dans cette partie nous allons voir quelques unes de ces diff\'erentes techniques.
 
-	\subsection{D\'eformation dynamique temporelle}
-		La d\'eformation dynamique temporelle (ou DTW en anglais pour Dynamic Time Warping) est un algorithme qui permet de detecter si deux s\'eries ont des similarit\'e m\^eme s\textquotesingle il y a eu une d\'eformation (voir figure~\ref{fig:dtw}).
+	\subsection{Ce qui ce fait actuellement}
+		\subsubsection{D\'eformation dynamique temporelle}
+			La d\'eformation dynamique temporelle (ou DTW en anglais pour Dynamic Time Warping) est un algorithme qui permet de detecter si deux s\'eries ont des similarit\'e m\^eme s\textquotesingle il y a eu une d\'eformation (voir figure~\ref{fig:dtw}).
 
-		\begin{figure}[!ht]
-			\centering
-			\includegraphics[scale=0.6,natwidth=582,natheight=269]{figures/dtw.png}
-			\caption{Comme on peut le voir, les deux s\'eries temporelles ne sont pas les m\^emes mais on peut reconna\^itre le m\^eme sch\'ema.}
-			\label{fig:dtw}
-		\end{figure}
+			\begin{figure}[!ht]
+				\centering
+				\includegraphics[scale=0.6,natwidth=582,natheight=269]{figures/dtw.png}
+				\caption{Comme on peut le voir, les deux s\'eries temporelles ne sont pas les m\^emes mais on peut reconna\^itre le m\^eme sch\'ema.}
+				\label{fig:dtw}
+			\end{figure}
 
-	\subsection{M\'ethode des k plus proches voisins}
-		La m\'ethode des k plus proches voisins (ou kNN pour k Nearest Neighboors) est une m\'ethode permettant de classifier les donn\'ees en les s\'eparant.
+		\subsubsection{Bag-of-Words}	
+			Le Bag-of-Words (BoW) est un mod\`ele de description de document avec des descripteurs (des “mots”). Il fonctionne en attribuant des mots aux documents, chaques mots ayant un probabilit\'e par document (voir figure~\ref{fig:BoW}). \cite{bailly2015bag} traite justement le sujet de la classification des s\'eries temporelles avec les Bag-of-Words. En utilisant les maximums et minimums locaux, ils obtiennent des mots qui seront ensuite utilis\'es dans la description des s\'eries temporelles.
 
-	\subsection{Bag-of-Words}	
-		Le Bag-of-Words (BoW) est un mod\`ele de description de document avec des descripteurs (des “mots”). Il fonctionne en attribuant des mots aux documents, chaques mots ayant un probabilit\'e par document (voir figure~\ref{fig:BoW}). \cite{bailly2015bag} traite justement le sujet de la classification des s\'eries temporelles avec les Bag-of-Words. En utilisant les maximums et minimums locaux, ils obtiennent des mots qui seront ensuite utilis\'es dans la description des s\'eries temporelles.
+			\begin{figure}[!ht]
+				\centering
+				\includegraphics[scale=0.6,natwidth=680,natheight=440]{figures/bagOfWords.png}
+				\caption{Le bag-of-words est en bas de la figure, il est compos\'e de diff\'erents mots, ici des images, qui sont reconnus sur les documents (en haut), qui sont ici des images. Par exemple, pour la premi\`ere image, on a une forte correspondance avec le premier et deuxi\`eme mot, alors que l\textquotesingle on a une faible correspondance avec la derni\`ere image.}
+				\label{fig:BoW}
+			\end{figure}
 
-		\begin{figure}[!ht]
-			\centering
-			\includegraphics[scale=0.6,natwidth=680,natheight=440]{figures/bagOfWords.png}
-			\caption{Le bag-of-words est en bas de la figure, il est compos\'e de diff\'erents mots, ici des images, qui sont reconnus sur les documents (en haut), qui sont ici des images. Par exemple, pour la premi\`ere image, on a une forte correspondance avec le premier et deuxi\`eme mot, alors que l\textquotesingle on a une faible correspondance avec la derni\`ere image.}
-			\label{fig:BoW}
-		\end{figure}
-
-		En utilisant l'algorithme de SIFT (Scale-Invariant Feature Transform) sur les donn\'ees d\textquotesingle UCR (\cite{UCRArchive}), les taux d\textquotesingle erreurs obtenus dans \cite{bailly2015bag} sont parfois meilleurs qu'en utilisant le DTW (Dynamic Time Warping) et la méthode des k plus proches voisins seuls.
-
-	\subsection{Machine \`a Vecteur de Support}
-		Les SVM (Support Vector Machine ou Machine \`a Vecteur de Support en fran\c cais) sont des techniques d\textquotesingle apprentissage supervis\'e. 
+			En utilisant l'algorithme de SIFT (Scale-Invariant Feature Transform) sur les donn\'ees d\textquotesingle UCR (\cite{UCRArchive}), les taux d\textquotesingle erreurs obtenus dans \cite{bailly2015bag} sont parfois meilleurs qu'en utilisant le DTW (Dynamic Time Warping) et la méthode des k plus proches voisins seuls.
 
 	\subsection{R\'eseau de neurones}
 		Les r\'eseaux de neurones sont un syst\`eme inspir\'e du mod\`ele biologique du cerveau. Un r\'eseau de neurone est compos\'e de plusieurs neurones (voir figure~\ref{fig:neuralNetwork}) qui ont chacun une fonction d\textquotesingle activation (voir figure~\ref{fig:neural}) et qui sont reli\'es \`a d\textquotesingle autres neurones par des poids.
 
-		\bigbreak
+		
+		La taille de la base de donn\'ee utilis\'e influence aussi les r\'esultats, Par exemple, [J\textquotesingle ai oubli\'e la r\'ef\'erence] montre bien que les performances d\'ependent bien de la taille des donn\'ees utilis\'ees.
 
-		\begin{figure}[!ht]
-			\centering
-			\begin{subfigure}{0.45\textwidth}
-				\centering	
-				\includegraphics[scale=0.7,natwidth=183,natheight=213]{figures/neuralNetworkLayers.png}
-				\caption{R\'eseau de neurones \`a couches}
-				\label{fig:nnl}
-			\end{subfigure}
-			\hspace*{\fill}
-			\begin{subfigure}{0.45\textwidth}	
+		\subsubsection{Un r\'eseau de neurone en g\'en\'eral}
+			\begin{itshape}Les neurones\end{itshape}
+			\smallbreak
+			Un neurone est une unit\'e qui contient une fonction d\textquotesingle activation qui d\'efini leur comportement. La figure~\ref{fig:neural} montre un neurone qui a 4 entr\'ees et un sortie. On note \texbf{$X$} le vecteur d\textquotesingle entr\'ee, \textbf{$W$} le vecteur des poids, $b$ le biais, $f(.)$ la fonction d\textquotesingle activation, et $h(X)$ la sortie du neurone. Notons aussi $z$ la somme des poids et $n$ le nombre d\textquotesingle entr\'ee d\textquotesingle un neurone (sans compter le biais). On a donc les \'equations suivantes :
+			
+			\begin{equation}
+				z = \sum_{k=0}^n w_k x_k + b
+				\label{eq:z}
+			\end{equation}
+
+			\begin{equation}
+				h_{W,b}(X) = f(z)
+				\label{eq:h}
+			\end{equation}
+
+			\begin{figure}[!ht]
 				\centering
-				\includegraphics[scale=0.7,natwidth=198,natheight=192]{figures/neuralNetworkCompleteConnexion.png}
-				\caption{R\'eseau de neurones \`a connexion compl\`ete}
-				\label{fig:nnc}
-			\end{subfigure}
-			\caption{Il existe diff\'erents types de r\'eseaux de neurones. Par exemple, la figure 1.a est un r\'eseau avec une architecture \`a couche, alors que le r\'eseau de la figure 2.b \`a une architecture \`a connexion compl\`ete. Dans le domaine de la classificatin, l\textquotesingle architecture \`a couche est souvent utilis\'e.}
-			\label{fig:neuralNetwork}
-		\end{figure}
+				\includegraphics[scale=0.7,natwidth=251,natheight=166]{figures/neural.png}
+				\caption{Comme on peut le voir, le neurone ci-dessus re\c coit 4 valeurs, dont le biais. Dans un r\'eseau de neurones, les entr\'ees $x$ sont en faite les sorties d\textquotesingle autres neurones.}
+				\label{fig:neural}
+			\end{figure}
 
-		\bigbreak
+			Un neurone seul ne peut pas effectuer de t\^ache, c\textquotesingle est pourquoi ils sont utilis\'es \`a plusieurs pour effectuer diverses t\^aches comme de l\textquotesingle analyse de donn\'ee ou de la classification.	
 
-		\begin{figure}[!ht]
-			\centering
-			\includegraphics[natwidth=176,natheight=52]{figures/neural.png}
-			\caption{La fonction d\textquotesingle activation est la fonction qui va d\'eterminer le comportement du neurone. Par exemple, si la fonction d\textquotesingle activation est un threshold, la sortie sera soit 1, soit 0. Si c\textquotesingle est une sigmoide (le plus souvent utlis\'e), la sortie sera $y = \frac{1}{1 + \exp{-x}}$ avec $y$ la sortie et $x$ l\textquotesingle entr\'ee.}
-			\label{fig:neural}
-		\end{figure}
-	
-		\bigbreak
+			\medbreak
+			\begin{itshape}L\textquotesingle architecture\end{itshape}
+			\smallbreak
+			L\textquotesingle efficacit\'e d\textquotesingle un r\'eseau de neurones d\'epend de son architecture.
+			Il existe diff\'erentes architectures pour un r\'eseau de neurone (voir figure~\ref{fig:neuralNetwork}), la plus connue et la plus r\'epandu \'etant le r\'eseau de neurone non-boucl\'es (ou feedfoward neural netowork en anglais) (voir figure~\ref{fig:nnl}). Selon le nombre de couche et le nombre de neurones par couche, le r\'eseau peut \^etre plus ou moins performants (\cite{chatfield2014return}\cite{srivastava2014dropout}). 
+			
+			Pour faire fonctionner un le r\'eseau de neurone non-boucl\'es, on lui donne d\textquotesingle une entr\'ee qui est de la m\^eme taille que la couche d\textquotesingle entr\'ee. Ces valeurs vont ensuite \^etre transmises aux neurones de la couche suivante jusqu\textquotesingle \`a couche de sortie de sortie.
 
-		L\textquotesingle un des avantages d\textquotesingle un r\'eseau de neurones est qu\textquotesingle il s\textquotesingle agit d\textquotesingle un syst\`eme qui apprend par entra\^inement. Il y a donc deux \'etapes pour un r\'eseau de neurone, d\textquotesingle abord l\textquotesingle entra\^inement, puis la v\'erification. Un autre avantage est qu\textquotesingle il donne souvent de bons r\'esultats, de nombreux papiers sur le sujet obtiennent souvent des taux d\textquotesingle erreurs tr\`es faibles (mettre les r\'ef\'erences ici).
-		Comme vu pr\'ec\'edemment, il y a deux \'etapes essentielles pour le fonctionnement d\textquotesingle un r\'eseau de neurones : l\textquotesingle entra\^inement et le test. L\textquotesingle entra\^inement est l\`a pour trouver les poids corrects entre les neurones, et le test pour v\'erifier que ces poids sont corrects. Dans les deux cas, le r\'eseau a besoin d\textquotesingle une base de donn\'ee sur laquel s\textquotesingle entra\^iner et tester. Cette base de donn\'ee sera alors s\'epar\'ee en deux parties, l\textquotesingle une pour l\textquotesingle entra\^inement, une autre pour le test.
-		L\textquotesingle efficacit\'e d\textquotesingle un r\'eseau de neurones d\'epend de son architecture. Selon le nombre de couche et le nombre de neurones par couche, le r\'eseau peut \^etre plus ou moins performants (\cite{chatfield2014return}\cite{srivastava2014dropout}). La taille de la base de donn\'ee utilis\'e influence aussi les r\'esultats, Par exemple, [J\textquotesingle ai oubli\'e la r\'ef\'erence] montre bien que les performances d\'ependent bien de la taille des donn\'ees utilis\'ees. Des m\'ethodes comme le DTW o\`u le 1NN am\'eliorent les r\'esultats (\cite{bailly2015bag,chatfield2014return})
+			En appliquant les formules \ref{eq:z} et \ref{eq:h}, et en notant $L$ le nombre de couche dans le r\'eseau, $a$ l\textquotesingle activation d\textquotesingle un neurone (qui correspond \`a la sortie du neurone), $n^{(l)}$ le nombre de neurone de la couche $l$, $w_{ij}^{(l)}$ le poids allant du neurone $j$ de la couche $l-1$ au neurone $i$ de la couche $l$, $x$ le vecteur d\textquotesingle entr\'ee du r\'eseau, on obtient les \'equations suivantes :
+
+			\begin{equation}
+				a_i^{(0)} = x_i
+				\label{eq:input}
+			\end{equation}
+
+			\begin{equation}
+				z_i^{(l)} = \sum_{k=0}^{n^{(l-1)}} w_{ik}^{(l)} a_k^{(l-1)} \enskip \forall 1 < l \leq L
+				\label{eq:zGlobal}
+			\end{equation}
+
+			\begin{equation}
+				a_i^{(l)} = f(z_i^{(l)}) \enskip \forall 1 < l \leq L
+				\label{eq:activation}
+			\end{equation}
+
+			\begin{figure}[!ht]
+				\centering
+				\begin{subfigure}{0.45\textwidth}
+					\centering	
+					\includegraphics[scale=0.7,natwidth=183,natheight=213]{figures/neuralNetworkLayers.png}
+					\caption{R\'eseau de neurones \`a couches}
+					\label{fig:nnl}
+				\end{subfigure}
+				\hspace*{\fill}
+				\begin{subfigure}{0.45\textwidth}	
+					\centering
+					\includegraphics[scale=0.7,natwidth=198,natheight=192]{figures/neuralNetworkCompleteConnexion.png}
+					\caption{R\'eseau de neurones \`a connexion compl\`ete}
+					\label{fig:nnc}
+				\end{subfigure}
+				\caption{Il existe diff\'erents types de r\'eseaux de neurones. Par exemple, la figure 1.a est un r\'eseau avec une architecture \`a couche, alors que le r\'eseau de la figure 2.b \`a une architecture \`a connexion compl\`ete. Dans le domaine de la classification, l\textquotesingle architecture \`a couche est souvent utilis\'e.}
+				\label{fig:neuralNetwork}
+			\end{figure}
+
+			\medbreak
+			\begin{itshape}L\textquotesingle entra\^inement\end{itshape}
+			\smallbreak
+			L\textquotesingle entra\^inement est indispensable dans un r\'eseau de neurone. C\textquotesingle est pendant l\textquotesingle que l\textquotesingle on fixe les poids entre les neurones, ces poids \'etant souvent d\'ecid\'ees al\'eatoirement lors de la cr\'eation du r\'eseau. Le m\'ethode la plus souvent utilis\'e est la backpropagation. Cette m\'ethode consiste \`a ajuster le poids peu \`a peu, le faisant converger vers une valeur. Pour cela, on commence par lancer le r\'eseau de neurone une fois. Les valeurs alors obtenues sont alors tr\`es loin de ce que l\textquotesingle on veut obtenir. 
+			\medbreak
 
 		\subsubsection{R\'eseau de neurones profond}
 			Un r\'eseau de neurones profond est un r\'eseau qui contient plusieurs couches cach\'ees. Ce type de r\'eseau a l\textquotesingle avantage de pouvoir apprendre un plus grand nombre de fonction avec un nombre de neurone dans les couches cach\'ees bien inf\'erieurs \`a celui d\textquotesingle un r\'eseau classique (ne contenant qu\textquotesingle une couche cach\'ee). En effet, \`a la place d\textquotesingle avoir un nombre exponentielle de neurones cach\'es (par rapoort aux neurones d\textquotesingle entr\'es), nous avons un nombre polynomiale.
-			Cependant, les r\'eseaux de neurones profonds sont difficiles \`a entra\^iner car ils n\'ecessitent beaucoup de donn\'ees label\'ees. L\textquotesingle entra\^inement d\textquotesingle un r\'eseau avec peu de donn\'ees nous donnerait un sur-apprentissage.
-			Pour entra\^inemer un r\'eseau de neurones profond, une des m\'ethodes existante est greedy layerwise training qui consiste \`a d\textquotesingle abord entra\^iner un r\'eseau avec une couche cach\'ee, de garder les param\`tres obtenus, puis de rajouter une seconde couche cach\'ee, et ainsi de suite (voir figure~\ref{fig:trainDeepNet}).
+			Cependant, les r\'eseaux de neurones profonds sont difficiles \`a entra\^iner car ils n\'ecessitent beaucoup de donn\'ees label\'ees. L\textquotesingle entra\^inement d\textquotesingle un r\'eseau avec peu de donn\'ees nous donnerait un sur-apprentissage. De plus, l\textquotesingle entra\^inement par backpropagation est peu efficace et induit souvent en erreur (du aux extremum locaux). Il faut donc les entra\^iner diff\'errement.
+			Une des m\'ethodes existantes est greedy layerwise training qui consiste \`a d\textquotesingle abord entra\^iner un r\'eseau avec une couche cach\'ee, de garder les param\`tres obtenus, puis de rajouter une seconde couche cach\'ee, et ainsi de suite (voir figure~\ref{fig:trainDeepNet}).
 
 			\begin{figure}[!ht]
 				\centering
@@ -178,7 +214,6 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 				\caption{On utilise ici l\textquotesingle algorithme greedy layerwise training avec des stacked autoencoders. C\textquotesingle est \`a dire que l\textquotesingle on veut que la sortie soit le plus proche possible de la couche qui la prec\`ede.}
 				\label{fig:trainDeepNet}
 			\end{figure}
-
 
 		\subsubsection{R\'eseau de neurones convolutionnels}
 			Les CNN (Convolutional Neural Network, ou r\'eseaux convolutionnels) sont un structure particuli\`ere des r\'eseaux de neurones profond car les neurones d\textquotesingle une couche \`a une autre ne sont pas tous reli\'es entre eux. En effet, es connections entre neurones se font localement, ce qui fait des entr\'ees d\textquotesingle une couche cach\'ee un sous-ensemble de motif de la couche pr\'ec\'edente (voir figure~\ref{fig:cnn}.
@@ -200,40 +235,61 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 				\label{fig:cnnChat}
 			\end{figure}
 
-			Pour les s\'eries temporelles, les CNN peuvent aussi s\textquotesingle appliquer. Par exemple, l\textquotesingle article \cite{zheng2014time} utilise les CNN pour faire de la classification de s\'eries temporelles multivari\'ees, c\textquotesingle est \`a dire des s\'eries temporelles qui sont sur plusieurs dimensions. Pour cela, ils 
+			Pour les s\'eries temporelles, les CNN peuvent aussi s\textquotesingle appliquer. Par exemple, l\textquotesingle article \cite{zheng2014time} utilise les CNN pour faire de la classification de s\'eries temporelles multivari\'ees, c\textquotesingle est \`a dire des s\'eries temporelles qui sont sur plusieurs dimensions.
 
+	\subsection{Le manque de donn\'ee}
+		Que faire lorsque l\textquotesingle on n\textquotesingle a pas assez de donn\'ees.
 
+		\subsubsection{L\textquotesingle augmentation de donn\'ees}
+			\medbreak
 
+			\begin{itshape}{Pourquoi chercher \`a augmenter la base de donn\'es ?}\end{itshape}
 
+			On a besoin de palier le manque de donn\'ee car les architectures de r\'eseau de neurones profond, comme les CNN, ont besoin de beaucoup de donn\'ees pour pouvoir \^etre entra\^in\'es efficacement. Les structures tels que MC-DCNN (voir \cite{zheng2014time}) peuvent \^etre utilis\'e.
+			De plus il y a peu, compar\'es aux images, de donn\'ees label\'ees sur les s\'eries temporelles. On aura donc besoin d\textquotesingle augmenter ces donn\'ees de diff\'erentes fa\c cons.
+			Par analogie aux images, on regardera comment transformer une s\'erie temporelle. Dans les donn\'ees pour les images, on applique certaines transformations (\cite{krizhevsky2012imagenet,howard2013some}), tel que la translation, l\textquotesingle inversion, le changement de couleur, de contraste, de luminosit\'e, ... (voir figure~\ref{fig:dataAugmentationChat}). Ces transformations ne sont pas forc\'ement applicables aux s\'eries temporelles et on regardera donc comment faire.
 
-\section{S\'eries temporelles}
-	Les s\'eries temporelles sont des donn\'ees qui d\'ependent du temps. Par exemple, la taille d\textquotesingle une personne par rapport \`a son âge peut \^etre vu comme une s\'erie temporelle. Le document [1] nous donne les d\'efinitions qui nous seront utile par la suite.
-	Il existe de nombreux domaines o\`u les s\'eries temporelles interviennent. Elles peuvent, par exemple, servir dans la biologie, la m\'edecine, la finance, ...
+			\medbreak
 
+			\begin{itshape}{Comment y parvenir ?}\end{itshape}
+			
+			Pour les images, plusieurs techniques existent. Par exemple, \cite{chatfield2014return} explique que pour r\'ealiser une augmentation de donn\'ees, ils perturbent une image avec des transformations qui n\textquotesingle invalide pas cette image, c\textquotesingle est \`a dire que si l\textquotesingle image d\textquotesingle origine montrait un chat, l\textquotesingle image transform\'ee doit toujours montrer un chat. \cite{krizhevsky2012imagenet} explique que pour augmenter ses donn\'ees, il s\'epare tout d\textquotesingle abord ses donn\'ees en deux parties, l\textquotesingle une pour l\textquotesingle apprentissage, et l\textquotesingle autre pour les tests. Dans les donn\'ees pour l\textquotesingle apprentissage, ils r\'ealisent des sous-images en extractant des zones de 224x224 pixels de l\textquotesingle image d\textquotesingle origine et de sa r\'eflection horizontale, qui a une taille de 256x256. On obtient donc une multiplication de 2048 de la base de donn\'ees d\textquotesingle origine. Les donn\'ees de test prendront 5 sous-images et leur r\'eflection (donc 10 images) selon leurs pr\'edictions. Toujours dans l\textquotesingle id\'ee d\textquotesingle augmenter leurs donn\'ees d\textquotesingle apprentissage, ils effectuent une ACP pour pouvoir, non pas r\'eduire les dimensions, ajouter du bruit contr\^ol\'e sur les composants principaux. Krizhevsky et al. [5] arrivent donc \'a baisser le taux d\textquotesingle erreur de plus de 1\% ainsi. Dans le papier [6], Howard utilise le m\^eme proc\'ed\'e mais rajoute d\textquotesingle encore d\textquotesingle autres \'etapes. 
 
-	\subsection{Data-augmentation for Time Series}
-		\littlebreak
+			\begin{figure}[!ht]
+				\centering
+				\includegraphics[scale=0.6,natwidth=528,natheight=397]{figures/dataAugmentationImage.png}
+				\caption{Exemple d\textquotesingle augmentation de donn\'ee pour une image. Ici, on a obtenu six images \`a partie d\textquotesingle une seule. On a d\textquotesingle abord appliqu\'e une inversion d\textquotesingle image et puis on a rogn\'e les images obtenues de deux mani\`eres diff\'erentes. En r\'ealit\'e, beaucoup plus de transformations sont appliqu\'ees, permettant de multiplier la base de donn\'ees des images de beaucoup (1024 dans~\cite{howard2013some}).}
+				\label{fig:dataAugmentationChat}
+			\end{figure}
 
-		\begin{itshape}{Pourquoi chercher \`a augmenter la base de donn\'es ?}\end{itshape}
+			Beaucoup de m\'ethode de data-augmentation le sont pour les images, la question \'etant de savoir si parmi ces m\'ethodes, on peut en r\'eutiliser ou non. Par exemple, on ne peut pas r\'ealiser une r\'eflection sur une s\'erie temporelle. Cependant, l\textquotesingle approche de Krizhevsky dans \cite{krizhevsky2012imagenet} pour les donn\'ees d\textquotesingle entra\^inement avec une ACP pourrait \^etre r\'ealisable sur des s\'eries temporelles. On pourrait peut-\^etre aussi rajouter du bruit contr\^ol\'e selon diff\'erents param\`etres comme dans \cite{krizhevsky2012imagenet} et \cite{howard2013some}.
 
-		On a besoin de palier le manque de donn\'ee car les architectures de r\'eseau de neurones profond, comme les CNN, ont besoin de beaucoup de donn\'ees pour pouvoir \^etre entra\^in\'es efficacement. Les structures tels que MC-DCNN (voir \cite{zheng2014time}) peuvent \^etre utilis\'e.
-		De plus il y a peu, compar\'es aux images, de donn\'ees label\'ees sur les s\'eries temporelles. On aura donc besoin d\textquotesingle augmenter ces donn\'ees de diff\'erentes fa\c cons.
-		Par analogie aux images, on regardera comment transformer une s\'erie temporelle. Dans les donn\'ees pour les images, on applique certaines transformations (\cite{krizhevsky2012imagenet,howard2013some}), tel que la translation, l\textquotesingle inversion, le changement de couleur, de contraste, de luminosit\'e, ... (voir figure~\ref{fig:dataAugmentationChat}). Ces transformations ne sont pas forc\'ement applicables aux s\'eries temporelles et on regardera donc comment faire.
+		\subsubsection{Dropout}
+			Le dropout (vient de la contraction de deux mots anglais \textit{dropping out}) est une m\'ethode d\textquotesingle apprentissage qui permet d\textquotesingle obtenir de bons r\'esultats avec un nombre de donn\'ees r\'eduites. L'article \cite{srivastava2014dropout} introduite cette notion. Le principe est de d\'esactiver certains neurones par couches al\'eatoirement (voir figure~\ref{fig:dropout}).
 
-		\littlebreak
+			\begin{figure}[!ht]
+				\centering
+				\includegraphics[scale=0.6,natwidth=554,natheight=238]{figures/dropout.png}
+				\caption{Par exemple, le r\'eseau de neurone \`a droite est celui de gauche apr\`es que l\textquotesingle on est appliqu\'e le dropout. Comme on peut le voir, on r\'eduit de beaucoup de nombre de connexion entre les neurones.}
+				\label{fig:dropout}
+			\end{figure}
 
-		\begin{itshape}{Comment y parvenir ?}\end{itshape}
-		
-		Pour les images, plusieurs techniques existent. Par exemple, \cite{chatfield2014return} explique que pour r\'ealiser une augmentation de donn\'ees, ils perturbent une image avec des transformations qui n\textquotesingle invalide pas cette image, c\textquotesingle est \`a dire que si l\textquotesingle image d\textquotesingle origine montrait un chat, l\textquotesingle image transform\'ee doit toujours montrer un chat. \cite{krizhevsky2012imagenet} explique que pour augmenter ses donn\'ees, il s\'epare tout d\textquotesingle abord ses donn\'ees en deux parties, l\textquotesingle une pour l\textquotesingle apprentissage, et l\textquotesingle autre pour les tests. Dans les donn\'ees pour l\textquotesingle apprentissage, ils r\'ealisent des sous-images en extractant des zones de 224x224 pixels de l\textquotesingle image d\textquotesingle origine et de sa r\'eflection horizontale, qui a une taille de 256x256. On obtient donc une multiplication de 2048 de la base de donn\'ees d\textquotesingle origine. Les donn\'ees de test prendront 5 sous-images et leur r\'eflection (donc 10 images) selon leurs pr\'edictions. Toujours dans l\textquotesingle id\'ee d\textquotesingle augmenter leurs donn\'ees d\textquotesingle apprentissage, ils effectuent une ACP pour pouvoir, non pas r\'eduire les dimensions, ajouter du bruit contr\^ol\'e sur les composants principaux. Krizhevsky et al. [5] arrivent donc \'a baisser le taux d\textquotesingle erreur de plus de 1\% ainsi. Dans le papier [6], Howard utilise le m\^eme proc\'ed\'e mais rajoute d\textquotesingle encore d\textquotesingle autres \'etapes. 
+			On applique en faite une probabilit\'e \`a chaque couche. Par exemple, une probabilit\'e de 0.5 sur la couche $l$ d\textquotesingle un r\'eseau de neurone signifie que les neurones de cette couche ont chacun une probabilt\'e de 0.5 d\textquotesingle \^etre activ\'e. On note $p$ la probabilit\'e et on a donc la formule~(\ref{eq:zGlobal}) qui devient :
 
-		\begin{figure}[!ht]
-			\centering
-			\includegraphics[scale=0.6,natwidth=528,natheight=397]{figures/dataAugmentationImage.png}
-			\caption{Exemple d\textquotesingle augmentation de donn\'ee pour une image. Ici, on a obtenu six images \`a partie d\textquotesingle une seule. On a d\textquotesingle abord appliqu\'e une inversion d\textquotesingle image et puis on a rogn\'e les images obtenues de deux mani\`eres diff\'erentes. En r\'ealit\'e, beaucoup plus de transformations sont appliqu\'ees, permettant de multiplier la base de donn\'ees des images de beaucoup (1024 dans~\cite{howard2013some}).}
-			\label{fig:dataAugmentationChat}
-		\end{figure}
+			\begin{equation}
+				r_j^{(l)} ~~ Bernouilli(p)
+				\label{eq:bernouilli}
+			\end{equation}
 
-		Beaucoup de m\'ethode de data-augmentation le sont pour les images, la question \'etant de savoir si parmi ces m\'ethodes, on peut en r\'eutiliser ou non. Par exemple, on ne peut pas r\'ealiser une r\'eflection sur une s\'erie temporelle. Cependant, l\textquotesingle approche de Krizhevsky dans \cite{krizhevsky2012imagenet} pour les donn\'ees d\textquotesingle entra\^inement avec une ACP pourrait \^etre r\'ealisable sur des s\'eries temporelles. On pourrait peut-\^etre aussi rajouter du bruit contr\^ol\'e selon diff\'erents param\`etres comme dans \cite{krizhevsky2012imagenet} et \cite{howard2013some}.
+			\begin{equation}
+				\~a^{(l)} = r^{(l)} * a^{(l)}
+				\label{eq:activationDropout}
+			\end{equation}
+
+			\begin{equation}
+				z_i^{(l)} = \sum_{k=0}^{n^{(l-1)}} w_{ik}^{(l)} \~a_k^{(l-1)} \enskip \forall 1 < l \leq L
+				\label{eq:zDropout}
+			\end{equation}
 
 
 \bigbreak
@@ -242,10 +298,11 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 Pour conclure , il existe de nombreuses mani\`eres d\textquotesingle augmenter le volume des donn\'ees. Cependant, ces m\'ethodes d\'ependent du type de donn\'ees. Avant de commencer \`a classifier des s\'eries temporelles, il va donc falloir trouver comment augmenter ce volume. Nous pourrions, par exemple, utiliser l\textquotesingle agorithme ACP ou s\textquotesingle inspirer des m\'ethodes utilis\'es sur les images.
 Pour la classification, les CNN semblent \^etre un bon choix \'etant donn\'ee les bons r\'esultats obtenus dans \cite{zheng2014time}. Pour cela, nous allons utiliser le framework Caffe (voir \cite{jia2014caffe}). Une fois mis en place, nous pourrions alors observer les r\'esultats.
 
-\section*{References}
-	\nocite{*}
-	\bibliographystyle{plain}
-	\bibliography{biblio}
+
+
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{biblio}
 
 
 
