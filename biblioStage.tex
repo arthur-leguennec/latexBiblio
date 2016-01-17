@@ -78,7 +78,7 @@
 \domain{Domain:  (examples) Data Structures and Algorithms - Logic in Computer Science}
 
 %write your abstract here
-\abstract{write your abstract here}
+\abstract{Les r\'eseaux de neurones sont dev}
 
 
 
@@ -89,19 +89,24 @@
 
 \section{Introduction}
 
-Beaucoup d\textquotesingle articles sur la classification des s\'eries temporelles ont \'et\'e \'ecrits, et est pr\'esente dans beaucoup de domaine comme la m\'edecine, la biologie, la reconnaissance audio, ... Il existe aussi beaucoup de m\'ethodes diff\'erentes pour y parvenir. Par exemple, l\textquotesingle article de Bailly et coll. (\cite{bailly2015bag}) utilise les bag-of-words, une technique bas\'ee sur la description des documents par des mots. \cite{zheng2014time} utilise plut\^ot les r\'eseaux de neurones convolutionnels.
+Beaucoup d\textquotesingle article sur la classification des s\'eries temporelles ont \'et\'e \'ecrits ces derni\`eres ann\'ees. Ce sujet est pr\'esent dans beaucoup de domaine comme la m\'edecine, la biologie, la reconnaissance audio, ... 
+Il existe des m\'ethodes simples tels que les kNN (k Nearest Neighbor ou les k plus proche voisins en fran\c cais) souvent utlis\'es avec les DTW (Dynamic Time Warping ou d\'eformation temporelle dynamique en fran\c cais) ou avec les ED (Euclidean Distance ou distance euclidienne en fran\c cais).
+Il existe aussi des m\'ethodes plus avanc\'ees pour y parvenir. Par exemple, l\textquotesingle article de Bailly et coll. (\cite{bailly2015bag}) utilise les bag-of-words, une technique bas\'ee sur la description des documents par des mots. \cite{zheng2014time} utilise plut\^ot les r\'eseaux de neurones convolutionnels.
 Dans ce document, nous allons utiliser les r\'eseaux de neurones profonds. Dans ce type de mod\`ele d\textquotesingle apprentissage, les r\'eseaux convolutionnels (ou Convolutional Neural Networks) donnent de tr\`es bons r\'esultats dans le domaine de la classification d\textquotesingle image (\cite{chatfield2014return}).
-Comme dans le domaine des s\'eries temporelles les nombres de donn\'ees annot\'ees est faible, et que les architectures qui vont seront utilis\'e demandent beaucoup de donn\'ee afin de fonctionner correctement. Nous allons donc explorer les m\'ethodes permettant de diminuer les cons\'equequences de ce manque de donn\'ees. \\
-Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textquotesingle \'etat de l\textquotesingle art dans ce domaine, et la section 3 s\textquotesingle interessera aux probl\`emes du manque de donn\'ees pour les s\'eries temporelles.
 
-% Ce sujet de stage propose de s’int\'eresser \`a la classification de s\'eries temporelles en utilisant des mod\`eles d\textquotesingle apprentissage tr\`es puissants : les r\'eseaux de neurones profonds (Deep Neural Networks). Dans cette famille de m\'ethodes, les r\'eseaux convolutionnels (Convolutional Neural Networks, CNN) montrent actuellement l\textquotesingle \'etendue de leurs capacit\'es dans le domaine de la vision par ordinateur (voir par exemple [1]). Les tr\`es bonnes performances des CNN s’expliquent par leur capacit\'e \`a tirer profit des grands volumes de donn\'ees disponibles pour apprendre des descriptions et des classifieurs complexes. Dans le domaine de la classification de s\'eries temporelles, les volumes de donn\'ees annot\'ees sont souvent bien plus faibles [2]. l\textquotesingle objet de ce stage est d\textquotesingle \'evaluer la pertinence de l\textquotesingle utilisation des CNN dans ce cadre et de proposer des moyens d\textquotesingle att\'enuer l\textquotesingle impact attendu du faible volume de donn\'ees annot\'ees [3]. l\textquotesingle \'etudiant(e) retenu(e) devra faire preuve d\textquotesingle organisation et de s\'erieux pour mener \`a bien la campagne exp\'erimentale intensive impliqu\'ee par ce sujet. Pour ce faire, il/elle utilisera le framework Caffe [4].
+Comme dans le domaine des s\'eries temporelles les nombres de donn\'ees annot\'ees est faible, et que les architectures qui vont seront utilis\'e demandent beaucoup de donn\'ee afin de fonctionner correctement. Nous allons donc explorer les m\'ethodes permettant de diminuer les cons\'equequences de ce manque de donn\'ees.
+
+Ce papier est organis\'e de la mani\`ere suivante. La section~\ref{seq:unknow} concerne l\textquotesingle \'etat de l\textquotesingle art des outils dans ce domaine, et la section~\ref{seq:noData} s\textquotesingle interessera aux probl\`emes du manque de donn\'ees pour les s\'eries temporelles.
  
 
 \section{\'Etat de l\textquotesingle art}
+\label{seq:stateOfTheArt}
 	La classification de s\'erie temporelle est un sujet qui est \'etudi\'e depuis maintenant plusieurs ann\'ees, et diff\'erentes techniques existent et de nombreux articles ont \'et\'e \'ecrits sur le sujet. Dans cette partie nous allons voir quelques unes de ces diff\'erentes techniques.
 
 	\subsection{Ce qui ce fait actuellement}
+	\label{seq:unknow}
 		\subsubsection{D\'eformation dynamique temporelle}
+		\label{seq:dtw}
 			La d\'eformation dynamique temporelle (ou DTW en anglais pour Dynamic Time Warping) est un algorithme qui permet de detecter si deux s\'eries ont des similarit\'e m\^eme s\textquotesingle il y a eu une d\'eformation (figure~\ref{fig:dtw}).
 
 			\begin{figure}[!ht]
@@ -111,7 +116,8 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 				\label{fig:dtw}
 			\end{figure}
 
-		\subsubsection{Bag-of-Words}	
+		\subsubsection{Bag-of-Words}
+		\label{seq:bagOfWords}
 			Le Bag-of-Words (BoW) est un mod\`ele de description de document avec des descripteurs (qui sont consid\'er'es comme des mots). Il fonctionne en attribuant des mots aux documents, chaque mot ayant un probabilit\'e par par document (figure~\ref{fig:BoW}). L\textquotesingle article de Bailly et coll. \cite{bailly2015bag} traite justement le sujet de la classification des s\'eries temporelles avec les Bag-of-Words. En utilisant les maximums et minimums locaux, ils obtiennent des mots qui seront ensuite utilis\'es dans la description des s\'eries temporelles.
 
 			\begin{figure}[!ht]
@@ -124,10 +130,12 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 			En utilisant l\textquotesingle algorithme de SIFT (Scale-Invariant Feature Transform) sur les donn\'ees d\textquotesingle UCR (\cite{UCRArchive}), les taux d\textquotesingle erreurs obtenus dans \cite{bailly2015bag} sont parfois meilleurs qu'en utilisant le DTW (Dynamic Time Warping) et la m\'ethode des k plus proches voisins seuls.
 
 	\subsection{R\'eseau de neurones}
+	\label{seq:neuralNetwork}
 		Les r\'eseaux de neurones sont un syst\`eme inspir\'e du mod\`ele biologique du cerveau. Un r\'eseau de neurone est compos\'e de plusieurs neurones (figure~\ref{fig:neuralNetwork}) qui ont chacun une fonction d\textquotesingle activation (figure~\ref{fig:neural}) et qui sont reli\'es \`a d\textquotesingle autres neurones par des poids.
 		La taille de la base de donn\'ee utilis\'ee influence aussi les r\'esultats, Par exemple, l'article de ??? [J\textquotesingle ai oubli\'e la r\'ef\'erence] montre que les performances d\'ependent de la taille des donn\'ees utilis\'ees.
 
 		\subsubsection{Un r\'eseau de neurone en g\'en\'eral}
+		\label{seq:simpleNeuralNetwork}
 			\begin{itshape}Les neurones\end{itshape}
 			\smallbreak
 			Un neurone est une unit\'e qui contient une fonction d\textquotesingle activation qui d\'efini son comportement. La figure~\ref{fig:neural} repr\'esente un neurone qui a 4 entr\'ees et une sortie. On note \texbf{$X$} le vecteur d\textquotesingle entr\'ee, \textbf{$W$} le vecteur des poids, $b$ le biais, $f(.)$ la fonction d\textquotesingle activation, et $h(X)$ la sortie du neurone. Notons aussi $z$ la somme des poids et $n$ le nombre d\textquotesingle entr\'ee d\textquotesingle un neurone (sans compter le biais). On a donc les \'equations suivantes :
@@ -259,6 +267,7 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 			\medbreak
 
 		\subsubsection{R\'eseau de neurones profond}
+		\label{seq:DeepNetwork}
 			Un r\'eseau de neurones profond est un r\'eseau qui contient plusieurs couches cach\'ees. Ce type de r\'eseau a l\textquotesingle avantage de pouvoir apprendre un plus grand nombre de fonction avec un nombre de neurone dans les couches cach\'ees bien inf\'erieurs \`a celui d\textquotesingle un r\'eseau classique. En effet, \`a la place d\textquotesingle avoir un nombre exponentielle de neurones cach\'es (par rapoort aux neurones d\textquotesingle entr\'es), nous avons un nombre polynomiale.
 			Cependant, les r\'eseaux de neurones profonds sont difficiles \`a entra\^iner car ils n\'ecessitent beaucoup de donn\'ees label\'ees. L\textquotesingle entra\^inement d\textquotesingle un r\'eseau avec peu de donn\'ees nous donnerait un sur-apprentissage. De plus, l\textquotesingle entra\^inement par backpropagation vu \`a la section d\textquotesingle est peu efficace s\textquotesingle il est utlis\'e directement et induit souvent en erreur (du aux extremum locaux). Il faut donc les entra\^iner diff\'errement.
 			Une des m\'ethodes existantes est greedy layerwise training qui consiste \`a d\textquotesingle abord entra\^iner un r\'eseau avec une couche cach\'ee, de garder les param\`tres obtenus, puis de rajouter une seconde couche cach\'ee, et ainsi de suite (figure~\ref{fig:trainDeepNet}).
@@ -271,7 +280,8 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 			\end{figure}
 
 		\subsubsection{R\'eseau de neurones convolutionnels}
-			Les CNN (Convolutional Neural Network, ou r\'eseaux convolutionnels) sont un structure particuli\`ere des r\'eseaux de neurones profond car les neurones d\textquotesingle une couche \`a une autre ne sont pas tous reli\'es entre eux. En effet, es connections entre neurones se font localement, ce qui fait des entr\'ees d\textquotesingle une couche cach\'ee un sous-ensemble de motif de la couche pr\'ec\'edente (figure~\ref{fig:cnn}.
+		\label{seq:CNN}
+			Les CNN (Convolutional Neural Network, ou r\'eseaux de neurone convolutionnels) sont un structure particuli\`ere des r\'eseaux de neurones profond car les neurones d\textquotesingle une couche \`a une autre ne sont pas tous reli\'es entre eux. En effet, es connections entre neurones se font localement, ce qui fait des entr\'ees d\textquotesingle une couche cach\'ee un sous-ensemble de motif de la couche pr\'ec\'edente (figure~\ref{fig:cnn}.
 
 			\begin{figure}[!ht]
 				\centering
@@ -293,9 +303,11 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 			Pour les s\'eries temporelles, les CNN peuvent aussi s\textquotesingle appliquer. Par exemple, l\textquotesingle article de Zheng et coll. (\cite{zheng2014time}) utilise les CNN pour faire de la classification de s\'eries temporelles multivari\'ees, c\textquotesingle est \`a dire des s\'eries temporelles qui sont sur plusieurs dimensions.
 
 	\subsection{Le manque de donn\'ee}
+	\label{seq:noData}
 		Que faire lorsque l\textquotesingle on n\textquotesingle a pas assez de donn\'ees.
 
 		\subsubsection{L\textquotesingle augmentation de donn\'ees}
+		\label{seq:dataAugmentation}
 			\medbreak
 
 			\begin{itshape}{Pourquoi chercher \`a augmenter la base de donn\'es ?}\end{itshape}
@@ -320,6 +332,7 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 			Beaucoup de m\'ethode de data-augmentation le sont pour les images, la question \'etant de savoir si parmi ces m\'ethodes, on peut en r\'eutiliser ou non. Par exemple, on ne peut pas r\'ealiser une r\'eflection sur une s\'erie temporelle. Cependant, l\textquotesingle approche de Krizhevsky dans \cite{krizhevsky2012imagenet} pour les donn\'ees d\textquotesingle entra\^inement avec une ACP pourrait \^etre r\'ealisable sur des s\'eries temporelles. On pourrait peut-\^etre aussi rajouter du bruit contr\^ol\'e selon diff\'erents param\`etres comme dans \cite{krizhevsky2012imagenet} ou \cite{howard2013some}.
 
 		\subsubsection{Dropout}
+		\label{seq:dropout}
 			Le dropout (vient de la contraction de deux mots anglais \textit{dropping out}) est une m\'ethode d\textquotesingle apprentissage qui permet d\textquotesingle obtenir de bons r\'esultats avec un nombre de donn\'ees r\'eduites. L\textquotesingle article de Srivastava et coll. (\cite{srivastava2014dropout}) introduite cette notion. Le principe est de d\'esactiver certains neurones par couches al\'eatoirement (figure~\ref{fig:dropout}).
 
 			\begin{figure}[!ht]
@@ -352,6 +365,7 @@ Ce papier est organis\'e de la mani\`ere suivante. La section 2 concerne l\textq
 \bigbreak
 \bigbreak
 \section{Conclusion}
+\label{seq:conclusion}
 Pour conclure , il existe de nombreuses mani\`eres d\textquotesingle augmenter le volume des donn\'ees. Cependant, ces m\'ethodes d\'ependent du type de donn\'ees. Avant de commencer \`a classifier des s\'eries temporelles, il va donc falloir trouver comment augmenter ce volume. Nous pourrions, par exemple, utiliser l\textquotesingle agorithme ACP ou s\textquotesingle inspirer des m\'ethodes utilis\'es sur les images.
 Pour la classification, les CNN semblent \^etre un bon choix \'etant donn\'ee les bons r\'esultats obtenus par Zheng et coll. (\cite{zheng2014time}). Pour cela, nous allons utiliser le framework Caffe (voir \cite{jia2014caffe}). Une fois mis en place, nous pourrions alors observer les r\'esultats.
 
