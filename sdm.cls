@@ -24,7 +24,7 @@ Université Rennes 1]
 
 % Upper part of the page
 \includegraphics[width=0.8\textwidth]{./header.png}\\[1cm]
-\textsc{\Large Master research Internship}
+\textsc{\Large Master Recherche Informatique}
 \vspace{1cm}
 
 \includegraphics[natwidth=352,	natheight=143,	width=0.09\textwidth]{schools/rennes1.png}
@@ -42,7 +42,7 @@ Université Rennes 1]
 
 
 \vspace{1cm} 
-\textsc{\Large Bibliographic report }\\[0.5cm]
+\textsc{\Large Rapport bibliographique }\\[0.5cm]
 
 % The title of your report
 \HRule \\[0.4cm]
@@ -61,13 +61,13 @@ Université Rennes 1]
 % Author and supervisor(s)
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
-\emph{Author:}\\
+\emph{Auteur:}\\
 \@author
 \end{flushleft}
 \end{minipage}
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
-\emph{Supervisor:} \\
+\emph{Superviseur:} \\
 %
 % name(s) of your supervisor(s)
 \@supervisorOne\\
@@ -88,9 +88,13 @@ Université Rennes 1]
 \end{center}
 \end{titlepage}
 
-\begin{flushleft}
+%\begin{flushleft}
 \textbf{Abstract:} \@abstract
-\end{flushleft}
+%\end{flushleft}
+
+\textbf{R\'esum\'e:} \@resume
+
+
 
 %\newpage
 
